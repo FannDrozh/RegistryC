@@ -6,27 +6,29 @@
 размер и цвет шрифта, цвет фона, тип шрифта. данные параметры должны хранитьс€ в реестре)*/
 //CONSOLE_FONT_INFOEX cfi;
 //HKEY hMyKey;
-
-main()
+HANDLE hConsole;
+void SetColor(int Text,int Fon)
+{
+	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, (Fon)+Text);
+}
+int main()
 {
 	system("chcp 1251");
 	while (TRUE)
 	{
-		printf("0 Ч черный\n1 Ч синий\n2 Ч зеленый\n3 Ч голубой\n4 Ч красный\n5 Ч лиловый\n6 Ч желтый\n7 Ч белый\n8 Ч серый\n9 Ч свело - синий\nA Ч светло - зеленый\nB Ч светло - голубой\n— Ч светло - красный\nE Ч светло - желтый\nF Ч €рко - белый\n");
-		char colback = NULL;
-		printf("¬ведите цвет фона: ");
-		scanf_s("%c", &colback);
-		ColorBackground(colback);
-		char colfore = NULL;
-		printf("¬ведите цвет шрифта: ");
-		scanf_s("%c\n", &colfore);
+		int size = 5;
+		int colback = (int*)malloc(size * sizeof(int));
+		int colfore = (int*)malloc(size * sizeof(int));
+		scanf_s("%d%d\n", &colback, &colfore);
 		if (colback != NULL && colfore != NULL)
 		{
-			
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | BACKGROUND_BLUE | BACKGROUND_RED | BACKGROUND_GREEN);
-			printf("Hello, World!\n");
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
+			SetColor(colfore, colback);
 			system("pause");
+		}
+		else
+		{
+			break;
 		}
 		//HKEY hKey = NULL;
 		//if (RegOpenKeyW(HKEY_CURRENT_USER, NULL, &hKey) != ERROR_SUCCESS)
@@ -41,7 +43,4 @@ main()
 	}
 }
 
-char ColorBackground(colback)
-{
 
-}
